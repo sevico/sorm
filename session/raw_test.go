@@ -4,6 +4,7 @@ package session
 import (
 	"database/sql"
 	"os"
+	"sorm/dialect"
 	"testing"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -19,7 +20,8 @@ func TestMain(m *testing.M) {
 }
 
 func NewSession() *Session {
-	return New(TestDB)
+	sqlite,_:=dialect.GetDialect("sqlite3")
+	return New(TestDB,sqlite)
 }
 
 func TestSession_Exec(t *testing.T) {
